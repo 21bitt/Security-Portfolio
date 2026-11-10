@@ -37,7 +37,7 @@ The sharper surprise was that an active policy did not stop the create. I had th
 
 ## Findings and recommendations
 
-This was an unauthorized-style test deploy over the weekend, and it was shadow IT: an account with temporary Contributor access stood up a test environment outside the organization's naming standard. The resource group name broke the `rg-` prefix, and the single deployment name on that group broke the naming standard as well. A tag was present and consistent with ownership, cost center, and lifecycle. The naming policy was active and assigned on the subscription, which covered this group. Effect was Audit, so the policy produced an audit result and did not deny the create.
+The intern was given temporary Contributor access to create a test environment, so the access was approved. The deploy was non-compliant. The resource group name broke the `rg-` prefix, and the single deployment name on that group broke the naming standard as well. A tag was present and consistent with ownership, cost center, and lifecycle. The naming policy was active and assigned on the subscription, which covered this group. Effect was Audit, so the policy produced an audit result and did not deny the create.
 
 Recommendations to the resource owner:
 
@@ -57,6 +57,6 @@ Recommendations to the resource owner:
 
 **Suggested resume line:** Reconstructed a weekend test deployment in a live multi-user Azure training tenant with Reader access, and showed that an active naming policy audited an `rg-` break because its Effect was Audit.
 
-**Interview angle:** I would tell this as a process failure: temporary Contributor left in place, a naming standard those people still need to be trained on, and a policy effect that recorded the shadow IT.
+**Interview angle:** I would tell this as a process failure: approved temporary Contributor, a naming standard those people still need to be trained on, and a policy effect that logged the non-compliant name without blocking it.
 
 The investigations table now links to this file, replacing the old placeholder. No external link yet.
