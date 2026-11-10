@@ -13,39 +13,21 @@ Monday's ticket in this live multi-user Azure training tenant was a test environ
 
 ## Investigation
 
-The four images below are placeholders until redacted captures are added. Follow the caption on each one when those files land.
-
 1. I opened Resource groups in the Azure portal and pattern-matched the list against the organization's naming standard. That standard uses an `rg-` prefix.
 
 2. One resource group broke the `rg-` prefix. I kept that group as the scope of the ticket.
 
-   ![Placeholder: resource group list with the naming outlier. Blur any name that is an identifier.](screenshots/01-resource-group-list.png)
-
-   *Resource group list. Blur names that identify a person, subscription, or tenant. The useful part of the shot is the group that breaks the organization's `rg-` naming standard.*
-
 3. I opened the Tags blade on a resource in that group. A tag was present, and it was consistent with the metadata I expected for ownership, cost center, and lifecycle. The value stays redacted here.
-
-   ![Placeholder: resource Tags blade. The tag value is called out as redacted.](screenshots/02-resource-tags.png)
-
-   *Tags blade. Keep the tag value redacted in the published capture. The shot should show a tag consistent with ownership, cost center, and lifecycle.*
 
 4. That tag showed the resource carried the expected metadata. I still needed the create itself, so I went to the deployment history on the same group.
 
 5. I opened the Deployments blade for that resource group. There was one deployment. Its name is redacted. That name broke the organization's naming standard as well.
-
-   ![Placeholder: Deployments blade. The deployment name is called out as redacted.](screenshots/03-deployments.png)
-
-   *Deployments blade. Redact the deployment name before publishing. The shot should show the single deployment on this resource group.*
 
 6. I used that deployment record as the start of the timeline. Deployment history is where the create sits in time. The name and the parameter values stay out of this write-up.
 
 7. A naming policy already existed and was active. The assignment was on the subscription, so it covered this resource group. I opened the assignment's Parameters tab. Effect was set to Audit.
 
 8. With Effect set to Audit, the policy wrote an audit result for the naming violation, and the resource was still created. Deny is the effect that rejects the request.
-
-   ![Placeholder: policy assignment Parameters tab with Effect set to Audit.](screenshots/04-policy-effect-audit.png)
-
-   *Policy assignment, Parameters tab. The shot should show Effect set to Audit. Blur any tenant or subscription identifier.*
 
 ## What broke / what surprised me
 
