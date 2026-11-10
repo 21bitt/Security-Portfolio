@@ -55,8 +55,10 @@ Recommendations to the resource owner:
 - What I'd do differently: check the policy Effect earlier. I started from the resource name. Effect is what explained why that name was allowed to exist.
 - Reader access in the Azure portal was enough to see the group, the tag, the deployment, and the policy parameters.
 
+<!--
 **Suggested resume line:** Reconstructed a weekend test deployment in a live multi-user Azure training tenant with Reader access, and showed that an active naming policy audited an `rg-` break because its Effect was Audit.
 
 **Interview angle:** I would tell this as a process failure: approved temporary Contributor, a naming standard those people still need to be trained on, and a policy effect that logged the non-compliant name without blocking it.
 
 The investigations table now links to this file, replacing the old placeholder. No external link yet.
+-->
