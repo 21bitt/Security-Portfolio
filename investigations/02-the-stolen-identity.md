@@ -16,11 +16,27 @@ I followed the two apps in five stages.
 
 1. Entry. The directory keeps a listing for each application it allows to sign in and call the organization's services, called an app registration, and an Owner of that listing can change the application's credentials. I opened the legacy connector app in the portal and read the notes on Branding & properties. The note recorded the entry. The accounting user had been phished and had completed multi-factor authentication, so the stolen session already included proof that the check had succeeded, and Conditional Access, the rules that allow a sign-in when those conditions are met, let it through. That user was still an Owner on the legacy connector app. The assignment had never been removed, which is access drift. The note stays out of this write-up.
 
+![The legacy app's properties page, where the investigation note was recorded. The note itself is blurred.](images/01-branding.png)
+
+*The legacy app's properties page, where the investigation note was recorded. The note itself is blurred.*
+
 2. Escalate. I opened Certificates & secrets. An application has its own password, called a client secret, and anyone who holds it can sign in as the application. Under Client secrets, a new one was on the list. The Expires column was the signal: the date sat nearly a century out, which marks a credential planted for persistence. The text written on that secret stays out of this write-up. The application then acts under its own directory identity, called a service principal, and that sign-in receives the permissions already granted to the application. Owner on the legacy app was enough for the attacker to authenticate that way and continue without another sign-in as the accounting user.
+
+![The app's password list. The expiry date, 12/31/2099, is the problem.](images/02-client-secret.png)
+
+*The app's password list. The expiry date, 12/31/2099, is the problem.*
 
 3. Pivot. Each action the application may take against directory and user data is granted on its own, called an API permission, and an attacker signed in as the application can use every action an administrator has already approved. I read that list on the legacy app. Those actions ran through Microsoft Graph, the interface for directory and user data. They belonged to the application itself, and an administrator had already approved them, recorded as admin consent, so they were live. That list was the blast radius: how far a sign-in as the application could reach. Owners also listed a service principal for a second app the attacker had registered. The default directory setting lets a standard user register an app, so that second app was created without an administrator. Ownership outlives any one secret. After the first secret is rotated, the Owner can create another.
 
+![The only owner is another application, not a person. That is what lets a deleted password be replaced.](images/03-owners.png)
+
+*The only owner is another application, not a person. That is what lets a deleted password be replaced.*
+
 4. Persist. I opened Expose an API on the legacy app. A named action another application is allowed to request, called a scope, was published there, and it lets the attacker's app ask the legacy app to perform that action for a signed-in user. The scope's name stays out of this write-up. Rotating the client secret leaves this request available. The attacker asks for that delegated access, access exercised as the user, from their own app.
+
+![A custom permission published on the legacy app, which lets another app request access. The permission's user-facing name is blurred.](images/04-expose-api.png)
+
+*A custom permission published on the legacy app, which lets another app request access. The permission's user-facing name is blurred.*
 
 5. Loot. I opened Authentication on the attacker-created app. The address the sign-in system sends the person to after they accept, carrying the authorization code that proves they accepted, is called a redirect URI, and the party that controls the address receives that code. One registered address was the kind used for local development. Another pointed at attacker-controlled infrastructure. The attacker-created app's client id, its public identifier, together with that redirect URI and the exposed scope, is what a consent-phishing URL is built from. A person already signed in on a company device accepts the consent prompt, and the authorization code is sent to that redirect. I confirmed the suspicious redirect by reading it. A URL-encoded value had to be decoded before I could read it. The decoded value and the address stay out of this write-up.
 
