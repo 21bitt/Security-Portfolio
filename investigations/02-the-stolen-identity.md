@@ -44,6 +44,10 @@ I followed the two apps in five stages.
 
 5. Loot. I opened Authentication on the attacker-created app. The address the sign-in system sends the person to after they accept, carrying the authorization code that proves they accepted, is called a redirect URI, and the party that controls the address receives that code. One registered address was the kind used for local development. Another pointed at attacker-controlled infrastructure. The attacker-created app's client id, its public identifier, together with that redirect URI and the exposed scope, is what a consent-phishing URL is built from. A person already signed in on a company device accepts the consent prompt, and the authorization code is sent to that redirect. I confirmed the suspicious redirect by reading it. A URL-encoded value had to be decoded before I could read it. The decoded value and the address stay out of this write-up.
 
+![The sign-in link, with the sensitive value blurred, before and after decoding.](images/05-decoded-link.png)
+
+*The sign-in link, with the sensitive value blurred, before and after decoding.*
+
 Phishing the password again has to get past device compliance, location, and multi-factor authentication. Consent phishing starts from a person who is already signed in on a trusted device and asks them to approve an application. The directory keeps that approval as a standing record that the application may act for the user, called an OAuth grant (OAuth2PermissionGrant), and a password reset, a session revocation, or enforcing multi-factor authentication leaves the attacker that record. A trusted service that carries out a request it should never have authorized is called a confused deputy, and that let the attacker send the legacy connector app a request the app should have refused. The token from that grant lets the attacker act as the user against that backend. The broad permissions that belong to the application itself stay on the application sign-in.
 
 ## What broke / what surprised me
