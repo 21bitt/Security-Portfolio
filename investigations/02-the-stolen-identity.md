@@ -58,6 +58,16 @@ The return address is where the proof of "Accept" is sent, so I opened Authentic
 
 *The sign-in link, with the sensitive value blurred, before and after decoding.*
 
+I read the link as three values the attacker already held, written out as one address. One is the public identifier of the second app. One is a return address on a server the attacker runs. One is the custom permission the old app had made available for other apps to request. With the real values removed, the address has this shape:
+
+```
+https://{sign-in-service}/{company-directory}/authorize?client={second-app-id}&return={attacker-return-address}&permission={old-app-permission}
+```
+
+Accept is the click that matters. It is made by someone whose work sign-in is already open on a company computer. Microsoft answers by sending a code that works once to the return address in that link. The attacker's server gives the code back and receives a short-lived pass, called a token. The token lets the attacker act in that person's name, and the only action it covers is the permission the old app published. The wide access the old app holds over the company directory sits on the old app, not in the token. The token can still ask the old app's own service, the part that does the work, to run a sync, and that service is allowed to carry it out. That is a confused deputy. The company trusts the old app, so the app treated the sync as its own job and went ahead with a request it should have declined.
+
+The link is worth more than stealing the password again. Using the password means a fresh sign-in on the attacker's computer, and the company checks are still there: the computer has to be one the company issued, the location has to fit the person, and an extra code has to be typed. The person who opens this link is already past those checks, on a company computer. No sign-in is started from the attacker's side. Accept leaves an approval that the second app may keep acting for them. The approval survives a new password, a sign-out of every session, and a fresh requirement for the extra code. Removing it is a separate action someone has to take.
+
 Phishing the password again has to get past device compliance, location, and multi-factor authentication. Consent phishing starts from a person who is already signed in on a trusted device and asks them to approve an application. The directory keeps that approval as a standing record that the application may act for the user, called an OAuth grant (OAuth2PermissionGrant), and a password reset, a session revocation, or enforcing multi-factor authentication leaves the attacker that record. A trusted service that carries out a request it should never have authorized is called a confused deputy, and that let the attacker send the legacy connector app a request the app should have refused. The token from that grant lets the attacker act as the user against that backend. The broad permissions that belong to the application itself stay on the application sign-in.
 
 ## What broke / what surprised me
