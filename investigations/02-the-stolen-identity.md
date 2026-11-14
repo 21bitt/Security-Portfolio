@@ -32,6 +32,10 @@ I followed the two apps in five stages.
 
 *The only owner is another application, not a person. That is what lets a deleted password be replaced.*
 
+![The second application, the one listed as owner. Its notes are blurred.](images/03b-rogue-branding.png)
+
+*The second application, the one listed as owner. Its notes are blurred.*
+
 4. Persist. I opened Expose an API on the legacy app. A named action another application is allowed to request, called a scope, was published there, and it lets the attacker's app ask the legacy app to perform that action for a signed-in user. The scope's name stays out of this write-up. Rotating the client secret leaves this request available. The attacker asks for that delegated access, access exercised as the user, from their own app.
 
 ![A custom permission published on the legacy app, which lets another app request access. The permission's user-facing name is blurred.](images/04-expose-api.png)
