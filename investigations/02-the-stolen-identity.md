@@ -93,6 +93,7 @@ Recommendations to the resource owner:
 ## What I learned
 
 - The work in this case is identity and access: who can get in, what they can touch, and what still works after a password reset.
+- The same idea showed up in Microsoft's January 2024 Midnight Blizzard incident, where a test account was only the way in and lasting access was apps plus saved approvals.
 - A stolen user session and a client-credentials sign-in, the application signing in with its own secret, are different. The session is what passed Conditional Access. The secret is what let the attacker sign in as the service principal and use the application's permissions without signing in as that person again.
 - The OAuth grant is why the access survived. Password reset, session revocation, and enforcing multi-factor authentication end the user's sessions. The grant has to be revoked on its own.
 - What I'd do differently: check Owners and Expose an API before calling the secret rotation done. The new secret was the obvious artifact. The ownership and the custom scope are what still worked after that secret was gone.
