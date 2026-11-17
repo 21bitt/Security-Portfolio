@@ -12,7 +12,7 @@ Contact: freehblee90@gmail.com · https://www.linkedin.com/notifications/
 |---|-------|-------|----------|
 | 1 | Operation Dead Deploy | Governance forensics, deployment audit trail | [write-up](investigations/01-operation-dead-deploy.md) |
 | 2 | The Stolen Identity | App registration attack kill chain (Entra ID) | [write-up](investigations/02-the-stolen-identity.md) |
-| 3 | Privilege Audit | RBAC and least privilege | coming, week 3 |
+| 3 | The Privilege Audit | RBAC and least privilege | [write-up](investigations/03-the-privilege-audit.md) |
 | 4 | Spin Up and Lock Down | Compute attack surface | coming, week 4 |
 | 5 | Network the Operative | Network segmentation | coming, week 5 |
 | 6 | Bucket Looting | Storage exposure hunting | coming, week 6 |
