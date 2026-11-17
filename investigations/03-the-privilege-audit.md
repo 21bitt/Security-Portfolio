@@ -48,6 +48,10 @@ A group appears as one row. The people and applications inside the group are a s
 
 An orphaned principal is labeled "Identity not found." On a long export that row sits among resolved names, and a review sorted by name drops the blank toward the bottom. The page does not say that the permissions are still attached to the stored object ID.
 
+![Role-assignment export showing the same Owner repeated across many scopes. Groups appear without their members.](images/03-iam-export.png)
+
+*Role-assignment export showing the same Owner repeated across many scopes. Groups appear without their members.*
+
 ### Azure CLI
 
 The CLI returns the same active assignments, in a shape a script can repeat. When the caller can resolve other names, an empty `principalName` is the deleted account: the assignment is present, and the name lookup failed.
@@ -55,6 +59,10 @@ The CLI returns the same active assignments, in a shape a script can repeat. Whe
 The published command is one resource group, so one run is one scope. Another resource group, the subscription, or a management group is another run. A grant that exists only on a scope you did not ask about is absent from that output.
 
 On this exercise the account I was signed in as could not resolve names, so an empty `principalName` was not proof of a deleted account by itself. I used the lesson file to cross-check which principals still existed.
+
+![One assignment whose principalName is empty. Azure kept the object ID after the account was deleted.](images/03-cli-assignment.png)
+
+*One assignment whose principalName is empty. Azure kept the object ID after the account was deleted.*
 
 ### Resource Graph (KQL)
 
@@ -69,7 +77,11 @@ authorizationresources
 | project name, principalId, principalType = properties.principalType, scope = properties.scope, description
 ```
 
-The query keeps active assignments whose description matches the filter written above. Eligible assignments are a different record. They are not rows of type `microsoft.authorization/roleassignments`, so this sweep does not list a role that is only eligible. The results stay out of this write-up.
+The query keeps active assignments whose description matches the filter written above. Eligible assignments are a different record. They are not rows of type `microsoft.authorization/roleassignments`, so this sweep does not list a role that is only eligible. The descriptions on those rows stay out of this write-up.
+
+![The tenant-wide KQL query and its results. Descriptions in the result are already blurred.](images/03-resource-graph.png)
+
+*The tenant-wide KQL query and its results. Descriptions in the result are already blurred.*
 
 ### PIM export
 
@@ -90,6 +102,10 @@ The four methods produce lists. The hunt is the step that uses them together. I 
 ![Activating that role for one hour, with a reason, so the hidden resource group becomes visible.](images/03-activate-operative.png)
 
 *Activating that role for one hour, with a reason, so the hidden resource group becomes visible.*
+
+![A wider role-assignment export used while hunting.](images/03-role-export.png)
+
+*A wider role-assignment export used while hunting.*
 
 ## Methodology
 
