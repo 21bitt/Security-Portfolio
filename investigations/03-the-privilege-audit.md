@@ -83,6 +83,14 @@ Microsoft documents the two halves as two commands, `Get-AzRoleEligibilitySchedu
 
 The four methods produce lists. The hunt is the step that uses them together. I activated the eligible role. A resource group that had been out of my view became visible. On that resource group, an account held Owner beyond what the job required. The exercise named no account, and the assignment carried no marker. Finding it took the activation, then a fresh look at who had full control.
 
+![Eligible Operative role on a resource group, before activation. The second resource name is already blurred.](images/03-pim-eligible.png)
+
+*Eligible Operative role on a resource group, before activation. The second resource name is already blurred.*
+
+![Activating that role for one hour, with a reason, so the hidden resource group becomes visible.](images/03-activate-operative.png)
+
+*Activating that role for one hour, with a reason, so the hidden resource group becomes visible.*
+
 ## Methodology
 
 | Method | What it shows | What it misses |
